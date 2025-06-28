@@ -665,32 +665,246 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                cursor: auto;
+                padding: 10px;
+            }
+            
+            .family-tree-container {
+                padding: 20px 10px;
+            }
+            
             .family-tree {
-                padding: 30px;
+                padding: 20px;
+                border-radius: 20px;
+                margin: 0;
+                width: 100%;
+                max-width: 100%;
             }
             
             .tree-title {
-                font-size: 2.5em;
+                font-size: 2em;
+                margin-bottom: 40px;
+                letter-spacing: 0;
             }
             
+            .tree-title::before,
+            .tree-title::after {
+                display: none;
+            }
+            
+            /* Hide complex animations on mobile */
+            .connections-svg,
+            .constellation-lines,
+            .floating-orb {
+                display: none;
+            }
+            
+            /* Simplify tree layout for mobile */
+            .tree-container {
+                gap: 40px;
+            }
+            
+            /* Stack all rows vertically */
             .grandparents-row,
+            .parents-row {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                width: 100%;
+            }
+            
+            .family-branch {
+                gap: 20px;
+                width: 100%;
+                border: 1px solid rgba(255,255,255,0.1);
+                padding: 20px;
+                border-radius: 20px;
+                background: rgba(255,255,255,0.02);
+            }
+            
+            .branch-title {
+                font-size: 1.2em;
+                padding: 10px 20px;
+                margin-bottom: 10px;
+            }
+            
             .couple-row,
             .children-row {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 15px;
+                width: 100%;
             }
             
+            /* Optimize person cards for mobile */
             .person {
-                min-width: 200px;
+                min-width: unset;
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+                padding: 20px;
+                animation: none;
             }
             
+            .person::before {
+                display: none;
+            }
+            
+            .person:hover {
+                transform: none;
+            }
+            
+            .person-inner {
+                padding: 15px;
+            }
+            
+            .photo-placeholder {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 10px;
+            }
+            
+            .photo-placeholder::before {
+                font-size: 40px;
+            }
+            
+            .name {
+                font-size: 1.3em;
+                margin-bottom: 5px;
+            }
+            
+            .relationship {
+                font-size: 0.9em;
+                margin-bottom: 5px;
+            }
+            
+            .occupation {
+                font-size: 0.8em;
+                padding: 8px 12px;
+                margin-top: 10px;
+            }
+            
+            /* Simplify legend for mobile */
+            .legend {
+                gap: 10px;
+                margin-top: 30px;
+                padding: 0 10px;
+            }
+            
+            .legend-item {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+            
+            .legend-box {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .legend-text {
+                font-size: 0.9em;
+            }
+            
+            /* Disable hover effects on mobile */
             .cursor,
             .cursor-follower {
                 display: none;
             }
             
-            body {
-                cursor: auto;
+            /* Show mobile hint on mobile */
+            .mobile-hint {
+                display: block !important;
+            }
+            .star {
+                display: none;
+            }
+            
+            .stars::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-image: 
+                    radial-gradient(2px 2px at 20% 30%, white, transparent),
+                    radial-gradient(2px 2px at 60% 70%, white, transparent),
+                    radial-gradient(1px 1px at 50% 50%, white, transparent),
+                    radial-gradient(1px 1px at 80% 20%, white, transparent);
+                background-size: 200px 200px;
+                animation: none;
+            }
+            
+            /* Improve touch targets */
+            .person {
+                min-height: 150px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            /* Add visual hierarchy on mobile */
+            .grandparents-row {
+                background: rgba(255,255,255,0.02);
+                padding: 20px;
+                border-radius: 20px;
+                border: 1px solid rgba(255,255,255,0.1);
+            }
+            
+            .grandparents-row::before {
+                content: '👴🏾 Grandparents 👵🏾';
+                display: block;
+                text-align: center;
+                font-size: 1.2em;
+                margin-bottom: 20px;
+                color: rgba(255,255,255,0.8);
+                font-weight: 600;
+            }
+            
+            /* Mobile-specific animations */
+            @keyframes mobileEntry {
+                0% { opacity: 0; transform: translateY(20px); }
+                100% { opacity: 1; transform: translateY(0); }
+            }
+            
+            .person {
+                animation: mobileEntry 0.5s ease-out backwards;
+            }
+            
+            .person:nth-child(1) { animation-delay: 0.1s; }
+            .person:nth-child(2) { animation-delay: 0.2s; }
+            .person:nth-child(3) { animation-delay: 0.3s; }
+            .person:nth-child(4) { animation-delay: 0.4s; }
+            
+            /* Optimize loader for mobile */
+            .loader-tree {
+                font-size: 60px;
+            }
+            
+            .loader-text {
+                font-size: 1.2em;
+            }
+        }
+        
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .tree-title {
+                font-size: 1.8em;
+            }
+            
+            .family-tree {
+                padding: 15px;
+            }
+            
+            .person {
+                padding: 15px;
+            }
+            
+            .name {
+                font-size: 1.1em;
+            }
+            
+            .occupation {
+                font-size: 0.75em;
             }
         }
     </style>
@@ -722,6 +936,16 @@
     <div class="family-tree-container">
         <div class="family-tree">
             <h1 class="tree-title">Ganesh Family Constellation</h1>
+            
+            <!-- Mobile hint -->
+            <p class="mobile-hint" style="
+                display: none;
+                text-align: center;
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 0.9em;
+                margin-top: -20px;
+                margin-bottom: 20px;
+            ">Tap on family members to learn more</p>
             
             <div class="tree-container">
                 <!-- SVG for connection lines -->
@@ -865,6 +1089,7 @@
     <script>
         // ========== INITIALIZATION ==========
         let isLoaded = false;
+        let isMobile = window.innerWidth <= 768;
         const tooltip = document.getElementById('tooltip');
         const cursor = document.querySelector('.cursor');
         const cursorFollower = document.querySelector('.cursor-follower');
@@ -894,12 +1119,16 @@
                 el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
                 el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
             });
+        } else {
+            // Hide cursor elements on mobile
+            cursor.style.display = 'none';
+            cursorFollower.style.display = 'none';
         }
 
         // ========== BACKGROUND EFFECTS ==========
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const starCount = 200;
+            const starCount = window.innerWidth <= 768 ? 50 : 200; // Fewer stars on mobile
             
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
@@ -915,6 +1144,9 @@
         }
 
         function createConstellations() {
+            // Skip constellations on mobile
+            if (window.innerWidth <= 768) return;
+            
             const svg = document.getElementById('constellationLines');
             const points = [];
             
@@ -948,6 +1180,9 @@
         }
 
         function createFloatingOrbs() {
+            // Skip orbs on mobile for better performance
+            if (window.innerWidth <= 768) return;
+            
             const container = document.getElementById('orbContainer');
             const orbCount = 5;
             
@@ -1007,6 +1242,9 @@
         }
 
         function drawConnections() {
+            // Skip drawing connections on mobile
+            if (window.innerWidth <= 768) return;
+            
             const svg = document.getElementById('connectionsSvg');
             // Clear existing paths but keep defs
             const paths = svg.querySelectorAll('path');
@@ -1035,7 +1273,10 @@
             const ripple = document.createElement('div');
             ripple.className = 'ripple';
             
-            const size = Math.max(rect.width, rect.height);
+            const size = window.innerWidth <= 768 ? 
+                Math.min(rect.width, rect.height) : 
+                Math.max(rect.width, rect.height);
+            
             ripple.style.width = ripple.style.height = size + 'px';
             ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
             ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
@@ -1047,16 +1288,17 @@
         function createParticles(element) {
             const rect = element.getBoundingClientRect();
             const colors = ['#667eea', '#764ba2', '#f093fb', '#fcb045'];
+            const particleCount = window.innerWidth <= 768 ? 6 : 12; // Fewer particles on mobile
             
-            for (let i = 0; i < 12; i++) {
+            for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.innerHTML = '✨';
                 particle.style.fontSize = (Math.random() * 10 + 10) + 'px';
                 particle.style.color = colors[Math.floor(Math.random() * colors.length)];
                 
-                const angle = (i / 12) * Math.PI * 2;
-                const distance = 50 + Math.random() * 100;
+                const angle = (i / particleCount) * Math.PI * 2;
+                const distance = window.innerWidth <= 768 ? 30 + Math.random() * 50 : 50 + Math.random() * 100;
                 const tx = Math.cos(angle) * distance;
                 const ty = Math.sin(angle) * distance;
                 
@@ -1073,6 +1315,9 @@
         }
 
         function highlightConnections(personId) {
+            // Skip connection highlighting on mobile
+            if (window.innerWidth <= 768) return;
+            
             const connections = {
                 'grandfather': ['grandmother', 'uncle'],
                 'grandmother': ['grandfather', 'mother'],
@@ -1109,6 +1354,9 @@
         }
 
         function clearHighlights() {
+            // Skip on mobile if no highlights were applied
+            if (window.innerWidth <= 768) return;
+            
             document.querySelectorAll('.connection-line').forEach(line => {
                 line.classList.remove('active');
             });
@@ -1158,41 +1406,97 @@
                 createParticles(this);
                 highlightConnections(this.id);
                 
+                // On mobile, show info in a modal-like tooltip
+                if (isMobile) {
+                    const info = this.getAttribute('data-info');
+                    if (info) {
+                        // Create mobile info modal
+                        const modal = document.createElement('div');
+                        modal.style.cssText = `
+                            position: fixed;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            background: rgba(0, 0, 0, 0.95);
+                            color: white;
+                            padding: 30px;
+                            border-radius: 20px;
+                            max-width: 90%;
+                            max-height: 80%;
+                            z-index: 10000;
+                            backdrop-filter: blur(10px);
+                            border: 1px solid rgba(255, 255, 255, 0.2);
+                            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+                            animation: modalIn 0.3s ease-out;
+                        `;
+                        modal.innerHTML = `
+                            <div style="font-size: 1.2em; line-height: 1.6;">${info}</div>
+                            <button style="
+                                margin-top: 20px;
+                                padding: 10px 20px;
+                                background: var(--primary-gradient);
+                                border: none;
+                                border-radius: 10px;
+                                color: white;
+                                font-size: 1em;
+                                font-weight: 600;
+                                cursor: pointer;
+                            " onclick="this.parentElement.remove()">Close</button>
+                        `;
+                        document.body.appendChild(modal);
+                        
+                        // Add animation
+                        const style = document.createElement('style');
+                        style.textContent = `
+                            @keyframes modalIn {
+                                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                                100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                            }
+                        `;
+                        document.head.appendChild(style);
+                    }
+                }
+                
                 // Clear highlights after 2 seconds
                 setTimeout(clearHighlights, 2000);
             });
             
-            person.addEventListener('mouseenter', function(e) {
-                const info = this.getAttribute('data-info');
-                if (info) {
-                    showTooltip(e, info);
-                }
-            });
-            
-            person.addEventListener('mousemove', function(e) {
-                const info = this.getAttribute('data-info');
-                if (info) {
-                    showTooltip(e, info);
-                }
-            });
-            
-            person.addEventListener('mouseleave', hideTooltip);
-            
-            // Add stagger animation on hover
-            person.addEventListener('mouseenter', function() {
-                const children = this.querySelectorAll('.photo-placeholder, .name, .relationship, .occupation');
-                children.forEach((child, index) => {
-                    child.style.transition = `transform 0.3s ease ${index * 0.05}s`;
-                    child.style.transform = 'translateY(-2px)';
+            // Desktop hover effects
+            if (!isMobile) {
+                person.addEventListener('mouseenter', function(e) {
+                    const info = this.getAttribute('data-info');
+                    if (info) {
+                        showTooltip(e, info);
+                    }
                 });
-            });
-            
-            person.addEventListener('mouseleave', function() {
-                const children = this.querySelectorAll('.photo-placeholder, .name, .relationship, .occupation');
-                children.forEach(child => {
-                    child.style.transform = 'translateY(0)';
+                
+                person.addEventListener('mousemove', function(e) {
+                    const info = this.getAttribute('data-info');
+                    if (info) {
+                        showTooltip(e, info);
+                    }
                 });
-            });
+                
+                person.addEventListener('mouseleave', hideTooltip);
+            }
+            
+            // Add stagger animation on hover (desktop only)
+            if (!isMobile) {
+                person.addEventListener('mouseenter', function() {
+                    const children = this.querySelectorAll('.photo-placeholder, .name, .relationship, .occupation');
+                    children.forEach((child, index) => {
+                        child.style.transition = `transform 0.3s ease ${index * 0.05}s`;
+                        child.style.transform = 'translateY(-2px)';
+                    });
+                });
+                
+                person.addEventListener('mouseleave', function() {
+                    const children = this.querySelectorAll('.photo-placeholder, .name, .relationship, .occupation');
+                    children.forEach(child => {
+                        child.style.transform = 'translateY(0)';
+                    });
+                });
+            }
         });
 
         // Legend filtering
@@ -1200,6 +1504,7 @@
             item.addEventListener('click', function() {
                 const filter = this.getAttribute('data-filter');
                 const persons = document.querySelectorAll('.person');
+                const isMobile = window.innerWidth <= 768;
                 
                 // Toggle active state
                 this.classList.toggle('active');
@@ -1218,7 +1523,10 @@
                     });
                 }
                 
-                createParticles(this);
+                // Only create particles on desktop
+                if (!isMobile) {
+                    createParticles(this);
+                }
             });
         });
 
@@ -1235,44 +1543,59 @@
             let resizeTimeout;
             window.addEventListener('resize', () => {
                 clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(drawConnections, 100);
+                resizeTimeout = setTimeout(() => {
+                    drawConnections();
+                    
+                    // Update mobile state on resize
+                    const newIsMobile = window.innerWidth <= 768;
+                    if (newIsMobile !== isMobile) {
+                        location.reload(); // Reload to properly reinitialize for new viewport
+                    }
+                }, 100);
             });
             
             // Add entrance animations with stagger
             const persons = document.querySelectorAll('.person');
             persons.forEach((person, index) => {
-                person.style.animationDelay = `${0.6 + index * 0.1}s`;
+                if (window.innerWidth > 768) {
+                    person.style.animationDelay = `${0.6 + index * 0.1}s`;
+                } else {
+                    // Simpler animation delay on mobile
+                    person.style.animationDelay = `${0.2 + index * 0.05}s`;
+                }
             });
         }
 
         // ========== ADDITIONAL EFFECTS ==========
-        // Random sparkles
-        setInterval(() => {
-            if (isLoaded && Math.random() > 0.7) {
-                const persons = document.querySelectorAll('.person');
-                const randomPerson = persons[Math.floor(Math.random() * persons.length)];
-                const rect = randomPerson.getBoundingClientRect();
-                
-                const sparkle = document.createElement('div');
-                sparkle.innerHTML = '✨';
-                sparkle.style.cssText = `
-                    position: fixed;
-                    left: ${rect.left + Math.random() * rect.width}px;
-                    top: ${rect.top + Math.random() * rect.height}px;
-                    color: #ffd700;
-                    font-size: 20px;
-                    pointer-events: none;
-                    animation: sparkle 1s ease-out forwards;
-                    z-index: 1000;
-                `;
-                document.body.appendChild(sparkle);
-                setTimeout(() => sparkle.remove(), 1000);
-            }
-        }, 3000);
+        // Random sparkles (desktop only)
+        if (window.innerWidth > 768) {
+            setInterval(() => {
+                if (isLoaded && Math.random() > 0.7) {
+                    const persons = document.querySelectorAll('.person');
+                    const randomPerson = persons[Math.floor(Math.random() * persons.length)];
+                    const rect = randomPerson.getBoundingClientRect();
+                    
+                    const sparkle = document.createElement('div');
+                    sparkle.innerHTML = '✨';
+                    sparkle.style.cssText = `
+                        position: fixed;
+                        left: ${rect.left + Math.random() * rect.width}px;
+                        top: ${rect.top + Math.random() * rect.height}px;
+                        color: #ffd700;
+                        font-size: 20px;
+                        pointer-events: none;
+                        animation: sparkle 1s ease-out forwards;
+                        z-index: 1000;
+                    `;
+                    document.body.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 1000);
+                }
+            }, 3000);
+        }
 
-        // Parallax effect on mouse move
-        document.addEventListener('mousemove', (e) => {
-            if (window.innerWidth > 768) {
+        // Parallax effect on mouse move (desktop only)
+        if (window.innerWidth > 768) {
+            document.addEventListener('mousemove', (e) => {
                 const x = (e.clientX - window.innerWidth / 2) / window.innerWidth;
                 const y = (e.clientY - window.innerHeight / 2) / window.innerHeight;
                 
@@ -1282,9 +1605,11 @@
                 });
                 
                 const stars = document.getElementById('stars');
-                stars.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
-            }
-        });
+                if (stars) {
+                    stars.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+                }
+            });
+        }
     </script>
 </body>
 </html>
