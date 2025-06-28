@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Ganesh Family Tree - Enhanced Edition</title>
+    <title>Ganesh Family Tree - Protected</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
         
@@ -13,15 +13,6 @@
             box-sizing: border-box;
         }
         
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            --male-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --female-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --you-gradient: linear-gradient(135deg, #fcb045 0%, #fd1d1d 50%, #fcb045 100%);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --animation-duration: 0.4s;
-        }
-        
         body {
             font-family: 'Poppins', sans-serif;
             background: #0a0a0a;
@@ -29,7 +20,174 @@
             padding: 0;
             min-height: 100vh;
             overflow-x: hidden;
-            cursor: none;
+        }
+        
+        /* Password Screen */
+        .password-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100000;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        
+        .password-screen.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .password-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 50px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            max-width: 400px;
+            width: 90%;
+            animation: fadeInScale 0.5s ease-out;
+        }
+        
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        .password-title {
+            font-size: 2.5em;
+            font-weight: 800;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+        
+        .password-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .password-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .password-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .password-button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .password-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .password-button:active {
+            transform: translateY(0);
+        }
+        
+        .password-error {
+            color: #ff6b6b;
+            margin-top: 15px;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .password-error.show {
+            opacity: 1;
+        }
+        
+        .password-hint {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85em;
+            margin-top: 20px;
+        }
+        
+        /* Stars background for password screen */
+        .password-stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .password-star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* Hidden content */
+        .protected-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .protected-content.show {
+            display: block;
+            opacity: 1;
+        }
+        
+        /* Include all your existing styles here... */
+        /* (I'm including a placeholder div for your family tree content) */
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --male-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --female-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --you-gradient: linear-gradient(135deg, #fcb045 0%, #fd1d1d 50%, #fcb045 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --animation-duration: 0.4s;
         }
 
         /* Custom Cursor */
@@ -87,11 +245,6 @@
             background: white;
             border-radius: 50%;
             animation: twinkle 3s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
         }
 
         .constellation-lines {
@@ -156,11 +309,6 @@
             position: relative;
             overflow: hidden;
             animation: fadeInScale 1s ease-out;
-        }
-
-        @keyframes fadeInScale {
-            0% { opacity: 0; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1); }
         }
 
         /* Animated Title */
@@ -814,6 +962,8 @@
             .mobile-hint {
                 display: block !important;
             }
+            
+            /* Reduce star count for performance */
             .star {
                 display: none;
             }
@@ -910,705 +1060,835 @@
     </style>
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-    
-    <!-- Loading Screen -->
-    <div class="loader" id="loader">
-        <div class="loader-content">
-            <div class="loader-tree">🌳</div>
-            <div class="loader-text">Growing Your Family Tree...</div>
+    <!-- Password Protection Screen -->
+    <div class="password-screen" id="passwordScreen">
+        <div class="password-stars" id="passwordStars"></div>
+        <div class="password-box">
+            <h1 class="password-title">🌳 Family Access</h1>
+            <p class="password-subtitle">Enter the family password to view the Ganesh Family Tree</p>
+            
+            <input 
+                type="password" 
+                class="password-input" 
+                id="passwordInput" 
+                placeholder="Enter password"
+                autocomplete="off"
+            >
+            
+            <button class="password-button" id="submitButton">
+                View Family Tree
+            </button>
+            
+            <div class="password-error" id="passwordError">
+                Incorrect password. Please try again.
+            </div>
+            
+            <p class="password-hint">
+                💡 Hint: Ask a family member if you don't know the password
+            </p>
         </div>
     </div>
     
-    <!-- Galaxy Background -->
-    <div class="galaxy-bg"></div>
-    <div class="stars" id="stars"></div>
-    <svg class="constellation-lines" id="constellationLines"></svg>
-    
-    <!-- Floating Orbs -->
-    <div id="orbContainer"></div>
-    
-    <!-- Tooltip -->
-    <div class="tooltip" id="tooltip"></div>
-    
-    <div class="family-tree-container">
-        <div class="family-tree">
-            <h1 class="tree-title">Ganesh Family Constellation</h1>
-            
-            <!-- Mobile hint -->
-            <p class="mobile-hint" style="
-                display: none;
-                text-align: center;
-                color: rgba(255, 255, 255, 0.7);
-                font-size: 0.9em;
-                margin-top: -20px;
-                margin-bottom: 20px;
-            ">Tap on family members to learn more</p>
-            
-            <div class="tree-container">
-                <!-- SVG for connection lines -->
-                <svg class="connections-svg" id="connectionsSvg">
-                    <defs>
-                        <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#667eea;stop-opacity:1">
-                                <animate attributeName="stop-color" values="#667eea;#764ba2;#f093fb;#667eea" dur="5s" repeatCount="indefinite" />
-                            </stop>
-                            <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1">
-                                <animate attributeName="stop-color" values="#764ba2;#f093fb;#667eea;#764ba2" dur="5s" repeatCount="indefinite" />
-                            </stop>
-                            <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1">
-                                <animate attributeName="stop-color" values="#f093fb;#667eea;#764ba2;#f093fb" dur="5s" repeatCount="indefinite" />
-                            </stop>
-                        </linearGradient>
-                    </defs>
-                </svg>
+    <!-- Your Protected Family Tree Content -->
+    <div class="protected-content" id="protectedContent">
+        <!-- Custom Cursor -->
+        <div class="cursor"></div>
+        <div class="cursor-follower"></div>
+        
+        <!-- Loading Screen -->
+        <div class="loader" id="loader">
+            <div class="loader-content">
+                <div class="loader-tree">🌳</div>
+                <div class="loader-text">Growing Your Family Tree...</div>
+            </div>
+        </div>
+        
+        <!-- Galaxy Background -->
+        <div class="galaxy-bg"></div>
+        <div class="stars" id="stars"></div>
+        <svg class="constellation-lines" id="constellationLines"></svg>
+        
+        <!-- Floating Orbs -->
+        <div id="orbContainer"></div>
+        
+        <!-- Tooltip -->
+        <div class="tooltip" id="tooltip"></div>
+        
+        <div class="family-tree-container">
+            <div class="family-tree">
+                <h1 class="tree-title">Ganesh Family Constellation</h1>
                 
-                <!-- Grandparents Row -->
-                <div class="grandparents-row">
-                    <div class="person male" id="grandfather" data-info="The wise patriarch who laid the foundation for this amazing family. His wisdom and values continue to guide the family.">
-                        <div class="person-inner">
-                            <div class="photo-placeholder"></div>
-                            <div class="name">Nagarajan Venkatapathy</div>
-                            <div class="relationship">Grandfather</div>
-                        </div>
-                    </div>
-                    <div class="person female" id="grandmother" data-info="The loving matriarch who binds the family together with warmth and care. Her love is the heart of the family.">
-                        <div class="person-inner">
-                            <div class="photo-placeholder"></div>
-                            <div class="name">Suganthal Venkatapathy</div>
-                            <div class="relationship">Grandmother</div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Mobile hint -->
+                <p class="mobile-hint" style="
+                    display: none;
+                    text-align: center;
+                    color: rgba(255, 255, 255, 0.7);
+                    font-size: 0.9em;
+                    margin-top: -20px;
+                    margin-bottom: 20px;
+                ">Tap on family members to learn more</p>
                 
-                <!-- Parents Row -->
-                <div class="parents-row">
-                    <!-- Ganesh Family Branch -->
-                    <div class="family-branch">
-                        <div class="branch-title">✨ Ganesh Family ✨</div>
-                        <div class="couple-row">
-                            <div class="person male" id="father" data-info="Engineering excellence at Nationwide Insurance. Building secure solutions and ensuring family stability.">
-                                <div class="person-inner">
-                                    <div class="photo-placeholder"></div>
-                                    <div class="name">Venkat Ganesh</div>
-                                    <div class="relationship">Father</div>
-                                    <div class="occupation">Engineer at Nationwide Insurance</div>
-                                </div>
-                            </div>
-                            <div class="person female" id="mother" data-info="Leadership powerhouse at Lumen Technologies. Illuminating paths in tech while nurturing family growth.">
-                                <div class="person-inner">
-                                    <div class="photo-placeholder"></div>
-                                    <div class="name">Jay Ganesh</div>
-                                    <div class="relationship">Mother</div>
-                                    <div class="occupation">Director at Lumen Technologies</div>
-                                </div>
+                <div class="tree-container">
+                    <!-- SVG for connection lines -->
+                    <svg class="connections-svg" id="connectionsSvg">
+                        <defs>
+                            <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1">
+                                    <animate attributeName="stop-color" values="#667eea;#764ba2;#f093fb;#667eea" dur="5s" repeatCount="indefinite" />
+                                </stop>
+                                <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1">
+                                    <animate attributeName="stop-color" values="#764ba2;#f093fb;#667eea;#764ba2" dur="5s" repeatCount="indefinite" />
+                                </stop>
+                                <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1">
+                                    <animate attributeName="stop-color" values="#f093fb;#667eea;#764ba2;#f093fb" dur="5s" repeatCount="indefinite" />
+                                </stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    
+                    <!-- Grandparents Row -->
+                    <div class="grandparents-row">
+                        <div class="person male" id="grandfather" data-info="The wise patriarch who laid the foundation for this amazing family. His wisdom and values continue to guide the family.">
+                            <div class="person-inner">
+                                <div class="photo-placeholder"></div>
+                                <div class="name">Nagarajan Venkatapathy</div>
+                                <div class="relationship">Grandfather</div>
                             </div>
                         </div>
-                        <div class="children-row">
-                            <div class="person male you" id="abishek" data-info="That's YOU! Triple threat in AI - Engineering, Teaching, and Consulting. Building the future one algorithm at a time!">
-                                <div class="person-inner">
-                                    <div class="photo-placeholder"></div>
-                                    <div class="name">Abishek Ganesh</div>
-                                    <div class="relationship">You</div>
-                                    <div class="occupation">AI Engineer, AI Instructor & Tech Consultant</div>
-                                </div>
-                            </div>
-                            <div class="person female" id="nisha" data-info="Brilliant gastroenterologist at UW. Healing patients and advancing medical science with dedication.">
-                                <div class="person-inner">
-                                    <div class="photo-placeholder"></div>
-                                    <div class="name">Nisha Ganesh</div>
-                                    <div class="relationship">Sister</div>
-                                    <div class="occupation">Gastroenterologist at UW</div>
-                                </div>
+                        <div class="person female" id="grandmother" data-info="The loving matriarch who binds the family together with warmth and care. Her love is the heart of the family.">
+                            <div class="person-inner">
+                                <div class="photo-placeholder"></div>
+                                <div class="name">Suganthal Venkatapathy</div>
+                                <div class="relationship">Grandmother</div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Venkatapathy Family Branch -->
-                    <div class="family-branch">
-                        <div class="branch-title">🌟 Venkatapathy Family 🌟</div>
-                        <div class="couple-row">
-                            <div class="person male" id="uncle" data-info="Tech innovator at Google. Organizing the world's information and inspiring the next generation.">
-                                <div class="person-inner">
-                                    <div class="photo-placeholder"></div>
-                                    <div class="name">Ram Venkatapathy</div>
-                                    <div class="relationship">Uncle</div>
-                                    <div class="occupation">Engineer at Google</div>
+                    <!-- Parents Row -->
+                    <div class="parents-row">
+                        <!-- Ganesh Family Branch -->
+                        <div class="family-branch">
+                            <div class="branch-title">✨ Ganesh Family ✨</div>
+                            <div class="couple-row">
+                                <div class="person male" id="father" data-info="Engineering excellence at Nationwide Insurance. Building secure solutions and ensuring family stability.">
+                                    <div class="person-inner">
+                                        <div class="photo-placeholder"></div>
+                                        <div class="name">Venkat Ganesh</div>
+                                        <div class="relationship">Father</div>
+                                        <div class="occupation">Engineer at Nationwide Insurance</div>
+                                    </div>
+                                </div>
+                                <div class="person female" id="mother" data-info="Leadership powerhouse at Lumen Technologies. Illuminating paths in tech while nurturing family growth.">
+                                    <div class="person-inner">
+                                        <div class="photo-placeholder"></div>
+                                        <div class="name">Jay Ganesh</div>
+                                        <div class="relationship">Mother</div>
+                                        <div class="occupation">Director at Lumen Technologies</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="person female" id="aunt" data-info="The caring soul who completes the Venkatapathy family with love and support.">
-                                <div class="person-inner">
-                                    <div class="photo-placeholder"></div>
-                                    <div class="name">Saumya Prasad</div>
-                                    <div class="relationship">Aunt</div>
+                            <div class="children-row">
+                                <div class="person male you" id="abishek" data-info="That's YOU! Triple threat in AI - Engineering, Teaching, and Consulting. Building the future one algorithm at a time!">
+                                    <div class="person-inner">
+                                        <div class="photo-placeholder"></div>
+                                        <div class="name">Abishek Ganesh</div>
+                                        <div class="relationship">You</div>
+                                        <div class="occupation">AI Engineer, AI Instructor & Tech Consultant</div>
+                                    </div>
+                                </div>
+                                <div class="person female" id="nisha" data-info="Brilliant gastroenterologist at UW. Healing patients and advancing medical science with dedication.">
+                                    <div class="person-inner">
+                                        <div class="photo-placeholder"></div>
+                                        <div class="name">Nisha Ganesh</div>
+                                        <div class="relationship">Sister</div>
+                                        <div class="occupation">Gastroenterologist at UW</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="children-row">
-                            <div class="person male" id="vedantha" data-info="Engineering innovation at Windsurf. Riding the waves of technology and creating cutting-edge solutions.">
-                                <div class="person-inner">
-                                    <div class="photo-placeholder"></div>
-                                    <div class="name">Vedantha Venkatapathy</div>
-                                    <div class="relationship">Cousin</div>
-                                    <div class="occupation">Engineer at Windsurf</div>
+                        
+                        <!-- Venkatapathy Family Branch -->
+                        <div class="family-branch">
+                            <div class="branch-title">🌟 Venkatapathy Family 🌟</div>
+                            <div class="couple-row">
+                                <div class="person male" id="uncle" data-info="Tech innovator at Google. Organizing the world's information and inspiring the next generation.">
+                                    <div class="person-inner">
+                                        <div class="photo-placeholder"></div>
+                                        <div class="name">Ram Venkatapathy</div>
+                                        <div class="relationship">Uncle</div>
+                                        <div class="occupation">Engineer at Google</div>
+                                    </div>
+                                </div>
+                                <div class="person female" id="aunt" data-info="The caring soul who completes the Venkatapathy family with love and support.">
+                                    <div class="person-inner">
+                                        <div class="photo-placeholder"></div>
+                                        <div class="name">Saumya Prasad</div>
+                                        <div class="relationship">Aunt</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="person female" id="medha" data-info="Brilliant mind at MIT. The future engineer carrying forward the family tradition of excellence.">
-                                <div class="person-inner">
-                                    <div class="photo-placeholder"></div>
-                                    <div class="name">Medha Venkatapathy</div>
-                                    <div class="relationship">Cousin</div>
-                                    <div class="occupation">Student at MIT</div>
+                            <div class="children-row">
+                                <div class="person male" id="vedantha" data-info="Engineering innovation at Windsurf. Riding the waves of technology and creating cutting-edge solutions.">
+                                    <div class="person-inner">
+                                        <div class="photo-placeholder"></div>
+                                        <div class="name">Vedantha Venkatapathy</div>
+                                        <div class="relationship">Cousin</div>
+                                        <div class="occupation">Engineer at Windsurf</div>
+                                    </div>
+                                </div>
+                                <div class="person female" id="medha" data-info="Brilliant mind at MIT. The future engineer carrying forward the family tradition of excellence.">
+                                    <div class="person-inner">
+                                        <div class="photo-placeholder"></div>
+                                        <div class="name">Medha Venkatapathy</div>
+                                        <div class="relationship">Cousin</div>
+                                        <div class="occupation">Student at MIT</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Legend -->
-            <div class="legend">
-                <div class="legend-item" data-filter="male">
-                    <div class="legend-box" style="background: var(--male-gradient);"></div>
-                    <span class="legend-text">Male</span>
-                </div>
-                <div class="legend-item" data-filter="female">
-                    <div class="legend-box" style="background: var(--female-gradient);"></div>
-                    <span class="legend-text">Female</span>
-                </div>
-                <div class="legend-item" data-filter="you">
-                    <div class="legend-box" style="background: var(--you-gradient);"></div>
-                    <span class="legend-text">You</span>
+                
+                <!-- Legend -->
+                <div class="legend">
+                    <div class="legend-item" data-filter="male">
+                        <div class="legend-box" style="background: var(--male-gradient);"></div>
+                        <span class="legend-text">Male</span>
+                    </div>
+                    <div class="legend-item" data-filter="female">
+                        <div class="legend-box" style="background: var(--female-gradient);"></div>
+                        <span class="legend-text">Female</span>
+                    </div>
+                    <div class="legend-item" data-filter="you">
+                        <div class="legend-box" style="background: var(--you-gradient);"></div>
+                        <span class="legend-text">You</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ========== INITIALIZATION ==========
-        let isLoaded = false;
-        let isMobile = window.innerWidth <= 768;
-        const tooltip = document.getElementById('tooltip');
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-
-        // Hide loader after content loads
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hide');
-                isLoaded = true;
-                initializeAnimations();
-            }, 1500);
-        });
-
-        // ========== CUSTOM CURSOR ==========
-        if (window.innerWidth > 768) {
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                
-                setTimeout(() => {
-                    cursorFollower.style.left = e.clientX + 'px';
-                    cursorFollower.style.top = e.clientY + 'px';
-                }, 100);
-            });
-
-            document.querySelectorAll('.person, .legend-item, button').forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-            });
-        } else {
-            // Hide cursor elements on mobile
-            cursor.style.display = 'none';
-            cursorFollower.style.display = 'none';
-        }
-
-        // ========== BACKGROUND EFFECTS ==========
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const starCount = window.innerWidth <= 768 ? 50 : 200; // Fewer stars on mobile
-            
-            for (let i = 0; i < starCount; i++) {
+        // Password configuration
+        const CORRECT_PASSWORD = 'GaneshFamily2025'; // Change this to your desired password
+        const STORAGE_KEY = 'ganeshFamilyTreeAccess';
+        const SESSION_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+        
+        // Create stars for password screen
+        function createPasswordStars() {
+            const starsContainer = document.getElementById('passwordStars');
+            for (let i = 0; i < 50; i++) {
                 const star = document.createElement('div');
-                star.className = 'star';
+                star.className = 'password-star';
                 star.style.width = Math.random() * 3 + 'px';
                 star.style.height = star.style.width;
                 star.style.left = Math.random() * 100 + '%';
                 star.style.top = Math.random() * 100 + '%';
                 star.style.animationDelay = Math.random() * 3 + 's';
-                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 starsContainer.appendChild(star);
             }
         }
-
-        function createConstellations() {
-            // Skip constellations on mobile
-            if (window.innerWidth <= 768) return;
-            
-            const svg = document.getElementById('constellationLines');
-            const points = [];
-            
-            // Generate random constellation points
-            for (let i = 0; i < 15; i++) {
-                points.push({
-                    x: Math.random() * window.innerWidth,
-                    y: Math.random() * window.innerHeight
-                });
+        
+        // Check if user has valid session
+        function checkAccess() {
+            const savedAccess = localStorage.getItem(STORAGE_KEY);
+            if (savedAccess) {
+                const accessData = JSON.parse(savedAccess);
+                const now = Date.now();
+                
+                // Check if session is still valid
+                if (accessData.expiry > now) {
+                    // Valid session - show content
+                    showContent();
+                    return true;
+                } else {
+                    // Session expired - clear it
+                    localStorage.removeItem(STORAGE_KEY);
+                }
             }
-            
-            // Connect nearby points
-            points.forEach((point, i) => {
-                points.slice(i + 1).forEach(otherPoint => {
-                    const distance = Math.sqrt(
-                        Math.pow(point.x - otherPoint.x, 2) + 
-                        Math.pow(point.y - otherPoint.y, 2)
-                    );
-                    
-                    if (distance < 200) {
-                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                        line.setAttribute('x1', point.x);
-                        line.setAttribute('y1', point.y);
-                        line.setAttribute('x2', otherPoint.x);
-                        line.setAttribute('y2', otherPoint.y);
-                        line.classList.add('constellation-line');
-                        svg.appendChild(line);
-                    }
-                });
-            });
+            return false;
         }
-
-        function createFloatingOrbs() {
-            // Skip orbs on mobile for better performance
-            if (window.innerWidth <= 768) return;
-            
-            const container = document.getElementById('orbContainer');
-            const orbCount = 5;
-            
-            for (let i = 0; i < orbCount; i++) {
-                const orb = document.createElement('div');
-                orb.className = 'floating-orb';
-                orb.style.width = (Math.random() * 100 + 50) + 'px';
-                orb.style.height = orb.style.width;
-                orb.style.left = Math.random() * 100 + '%';
-                orb.style.top = Math.random() * 100 + '%';
-                orb.style.background = `radial-gradient(circle at 30% 30%, 
-                    hsla(${Math.random() * 60 + 200}, 70%, 60%, 0.3), transparent)`;
-                orb.style.animationDelay = (Math.random() * 10) + 's';
-                orb.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                container.appendChild(orb);
-            }
-        }
-
-        // ========== SVG CONNECTIONS ==========
-        function getCenter(element) {
-            const rect = element.getBoundingClientRect();
-            const containerRect = document.querySelector('.tree-container').getBoundingClientRect();
-            return {
-                x: rect.left + rect.width / 2 - containerRect.left,
-                y: rect.top + rect.height / 2 - containerRect.top
+        
+        // Save access session
+        function saveAccess() {
+            const accessData = {
+                timestamp: Date.now(),
+                expiry: Date.now() + SESSION_DURATION
             };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(accessData));
         }
-
-        function drawConnection(fromId, toId, svg) {
-            const fromElement = document.getElementById(fromId);
-            const toElement = document.getElementById(toId);
+        
+        // Show protected content
+        function showContent() {
+            const passwordScreen = document.getElementById('passwordScreen');
+            const protectedContent = document.getElementById('protectedContent');
             
-            if (!fromElement || !toElement) return;
-            
-            const from = getCenter(fromElement);
-            const to = getCenter(toElement);
-            
-            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            
-            // Create curved path
-            const midY = from.y + (to.y - from.y) * 0.5;
-            const controlPoint1X = from.x;
-            const controlPoint1Y = midY;
-            const controlPoint2X = to.x;
-            const controlPoint2Y = midY;
-            
-            const d = `M ${from.x} ${from.y} 
-                       C ${controlPoint1X} ${controlPoint1Y}, 
-                         ${controlPoint2X} ${controlPoint2Y}, 
-                         ${to.x} ${to.y}`;
-            
-            path.setAttribute('d', d);
-            path.setAttribute('class', 'connection-line');
-            path.setAttribute('data-from', fromId);
-            path.setAttribute('data-to', toId);
-            svg.appendChild(path);
+            passwordScreen.classList.add('hide');
+            setTimeout(() => {
+                passwordScreen.style.display = 'none';
+                protectedContent.classList.add('show');
+                // Initialize family tree after showing content
+                setTimeout(initializeFamilyTree, 100);
+            }, 500);
         }
-
-        function drawConnections() {
-            // Skip drawing connections on mobile
-            if (window.innerWidth <= 768) return;
+        
+        // Validate password
+        function validatePassword() {
+            const input = document.getElementById('passwordInput');
+            const error = document.getElementById('passwordError');
+            const enteredPassword = input.value;
             
-            const svg = document.getElementById('connectionsSvg');
-            // Clear existing paths but keep defs
-            const paths = svg.querySelectorAll('path');
-            paths.forEach(path => path.remove());
-            
-            // Grandparents to their children
-            drawConnection('grandmother', 'mother', svg);
-            drawConnection('grandfather', 'uncle', svg);
-            
-            // Parents to their children
-            drawConnection('father', 'abishek', svg);
-            drawConnection('mother', 'abishek', svg);
-            drawConnection('father', 'nisha', svg);
-            drawConnection('mother', 'nisha', svg);
-            
-            // Uncle/Aunt to their children
-            drawConnection('uncle', 'vedantha', svg);
-            drawConnection('aunt', 'vedantha', svg);
-            drawConnection('uncle', 'medha', svg);
-            drawConnection('aunt', 'medha', svg);
-        }
-
-        // ========== INTERACTIVE EFFECTS ==========
-        function createRipple(e, element) {
-            const rect = element.getBoundingClientRect();
-            const ripple = document.createElement('div');
-            ripple.className = 'ripple';
-            
-            const size = window.innerWidth <= 768 ? 
-                Math.min(rect.width, rect.height) : 
-                Math.max(rect.width, rect.height);
-            
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
-            ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
-            
-            element.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 800);
-        }
-
-        function createParticles(element) {
-            const rect = element.getBoundingClientRect();
-            const colors = ['#667eea', '#764ba2', '#f093fb', '#fcb045'];
-            const particleCount = window.innerWidth <= 768 ? 6 : 12; // Fewer particles on mobile
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.innerHTML = '✨';
-                particle.style.fontSize = (Math.random() * 10 + 10) + 'px';
-                particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+            if (enteredPassword === CORRECT_PASSWORD) {
+                // Correct password
+                saveAccess();
+                showContent();
                 
-                const angle = (i / particleCount) * Math.PI * 2;
-                const distance = window.innerWidth <= 768 ? 30 + Math.random() * 50 : 50 + Math.random() * 100;
-                const tx = Math.cos(angle) * distance;
-                const ty = Math.sin(angle) * distance;
+                // Clear the input
+                input.value = '';
+            } else {
+                // Incorrect password
+                error.classList.add('show');
+                input.style.borderColor = '#ff6b6b';
                 
-                particle.style.cssText += `
-                    left: ${rect.left + rect.width / 2}px;
-                    top: ${rect.top + rect.height / 2}px;
-                    --tx: ${tx}px;
-                    --ty: ${ty}px;
-                `;
+                // Shake animation
+                input.style.animation = 'shake 0.5s ease';
+                setTimeout(() => {
+                    input.style.animation = '';
+                }, 500);
                 
-                document.body.appendChild(particle);
-                setTimeout(() => particle.remove(), 1000);
+                // Clear error after 3 seconds
+                setTimeout(() => {
+                    error.classList.remove('show');
+                    input.style.borderColor = '';
+                }, 3000);
             }
         }
-
-        function highlightConnections(personId) {
-            // Skip connection highlighting on mobile
-            if (window.innerWidth <= 768) return;
-            
-            const connections = {
-                'grandfather': ['grandmother', 'uncle'],
-                'grandmother': ['grandfather', 'mother'],
-                'father': ['mother', 'abishek', 'nisha'],
-                'mother': ['father', 'abishek', 'nisha', 'grandmother'],
-                'uncle': ['aunt', 'vedantha', 'medha', 'grandfather'],
-                'aunt': ['uncle', 'vedantha', 'medha'],
-                'abishek': ['father', 'mother', 'nisha'],
-                'nisha': ['father', 'mother', 'abishek'],
-                'vedantha': ['uncle', 'aunt', 'medha'],
-                'medha': ['uncle', 'aunt', 'vedantha']
-            };
-            
-            // Highlight connected lines
-            document.querySelectorAll('.connection-line').forEach(line => {
-                const from = line.getAttribute('data-from');
-                const to = line.getAttribute('data-to');
-                
-                if (from === personId || to === personId || 
-                    connections[personId]?.includes(from) || 
-                    connections[personId]?.includes(to)) {
-                    line.classList.add('active');
-                }
-            });
-            
-            // Highlight connected people
-            connections[personId]?.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.style.transform = 'scale(1.05)';
-                    element.style.filter = 'brightness(1.2)';
-                }
-            });
-        }
-
-        function clearHighlights() {
-            // Skip on mobile if no highlights were applied
-            if (window.innerWidth <= 768) return;
-            
-            document.querySelectorAll('.connection-line').forEach(line => {
-                line.classList.remove('active');
-            });
-            
-            document.querySelectorAll('.person').forEach(person => {
-                person.style.transform = '';
-                person.style.filter = '';
-            });
-        }
-
-        // ========== TOOLTIP SYSTEM ==========
-        function showTooltip(e, text) {
-            tooltip.textContent = text;
-            tooltip.classList.add('show');
-            
-            const x = e.clientX;
-            const y = e.clientY;
-            
-            tooltip.style.left = x + 'px';
-            tooltip.style.top = (y - tooltip.offsetHeight - 20) + 'px';
-            
-            // Adjust if tooltip goes off screen
-            const rect = tooltip.getBoundingClientRect();
-            if (rect.left < 10) {
-                tooltip.style.left = '10px';
-            } else if (rect.right > window.innerWidth - 10) {
-                tooltip.style.left = (window.innerWidth - rect.width - 10) + 'px';
+        
+        // Shake animation
+        const shakeStyle = document.createElement('style');
+        shakeStyle.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
             }
-            
-            if (rect.top < 10) {
-                tooltip.style.top = (y + 20) + 'px';
-                tooltip.style.setProperty('--arrow-bottom', '-8px');
-                tooltip.style.setProperty('--arrow-top', 'auto');
-                tooltip.style.setProperty('--arrow-border', '8px solid transparent');
-                tooltip.style.setProperty('--arrow-border-bottom', '8px solid rgba(0, 0, 0, 0.9)');
+        `;
+        document.head.appendChild(shakeStyle);
+        
+        // Modal animation for family tree
+        const modalStyle = document.createElement('style');
+        modalStyle.textContent = `
+            @keyframes modalIn {
+                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
             }
-        }
-
-        function hideTooltip() {
-            tooltip.classList.remove('show');
-        }
-
-        // ========== EVENT LISTENERS ==========
-        document.querySelectorAll('.person').forEach(person => {
-            person.addEventListener('click', function(e) {
-                createRipple(e, this);
-                createParticles(this);
-                highlightConnections(this.id);
-                
-                // On mobile, show info in a modal-like tooltip
-                if (isMobile) {
-                    const info = this.getAttribute('data-info');
-                    if (info) {
-                        // Create mobile info modal
-                        const modal = document.createElement('div');
-                        modal.style.cssText = `
-                            position: fixed;
-                            top: 50%;
-                            left: 50%;
-                            transform: translate(-50%, -50%);
-                            background: rgba(0, 0, 0, 0.95);
-                            color: white;
-                            padding: 30px;
-                            border-radius: 20px;
-                            max-width: 90%;
-                            max-height: 80%;
-                            z-index: 10000;
-                            backdrop-filter: blur(10px);
-                            border: 1px solid rgba(255, 255, 255, 0.2);
-                            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-                            animation: modalIn 0.3s ease-out;
-                        `;
-                        modal.innerHTML = `
-                            <div style="font-size: 1.2em; line-height: 1.6;">${info}</div>
-                            <button style="
-                                margin-top: 20px;
-                                padding: 10px 20px;
-                                background: var(--primary-gradient);
-                                border: none;
-                                border-radius: 10px;
-                                color: white;
-                                font-size: 1em;
-                                font-weight: 600;
-                                cursor: pointer;
-                            " onclick="this.parentElement.remove()">Close</button>
-                        `;
-                        document.body.appendChild(modal);
-                        
-                        // Add animation
-                        const style = document.createElement('style');
-                        style.textContent = `
-                            @keyframes modalIn {
-                                0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-                                100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-                            }
-                        `;
-                        document.head.appendChild(style);
-                    }
-                }
-                
-                // Clear highlights after 2 seconds
-                setTimeout(clearHighlights, 2000);
-            });
-            
-            // Desktop hover effects
-            if (!isMobile) {
-                person.addEventListener('mouseenter', function(e) {
-                    const info = this.getAttribute('data-info');
-                    if (info) {
-                        showTooltip(e, info);
-                    }
-                });
-                
-                person.addEventListener('mousemove', function(e) {
-                    const info = this.getAttribute('data-info');
-                    if (info) {
-                        showTooltip(e, info);
-                    }
-                });
-                
-                person.addEventListener('mouseleave', hideTooltip);
-            }
-            
-            // Add stagger animation on hover (desktop only)
-            if (!isMobile) {
-                person.addEventListener('mouseenter', function() {
-                    const children = this.querySelectorAll('.photo-placeholder, .name, .relationship, .occupation');
-                    children.forEach((child, index) => {
-                        child.style.transition = `transform 0.3s ease ${index * 0.05}s`;
-                        child.style.transform = 'translateY(-2px)';
-                    });
-                });
-                
-                person.addEventListener('mouseleave', function() {
-                    const children = this.querySelectorAll('.photo-placeholder, .name, .relationship, .occupation');
-                    children.forEach(child => {
-                        child.style.transform = 'translateY(0)';
-                    });
-                });
+        `;
+        document.head.appendChild(modalStyle);
+        
+        // Event listeners
+        document.getElementById('submitButton').addEventListener('click', validatePassword);
+        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                validatePassword();
             }
         });
+        
+        // Initialize
+        createPasswordStars();
+        
+        // Check if user already has access
+        if (!checkAccess()) {
+            // Focus on password input
+            document.getElementById('passwordInput').focus();
+        } else {
+            // If user has access, hide the loader
+            const loader = document.getElementById('loader');
+            if (loader) {
+                loader.style.display = 'none';
+            }
+        }
+        
+        // ========== FAMILY TREE SCRIPTS ==========
+        // These scripts will only run after successful authentication
+        
+        function initializeFamilyTree() {
+            // ========== INITIALIZATION ==========
+            let isLoaded = false;
+            let isMobile = window.innerWidth <= 768;
+            const tooltip = document.getElementById('tooltip');
+            const cursor = document.querySelector('.cursor');
+            const cursorFollower = document.querySelector('.cursor-follower');
 
-        // Legend filtering
-        document.querySelectorAll('.legend-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const filter = this.getAttribute('data-filter');
-                const persons = document.querySelectorAll('.person');
-                const isMobile = window.innerWidth <= 768;
+            // Hide loader after content loads
+            setTimeout(() => {
+                const loader = document.getElementById('loader');
+                if (loader) {
+                    loader.classList.add('hide');
+                    isLoaded = true;
+                    initializeAnimations();
+                }
+            }, 1500);
+
+            // ========== CUSTOM CURSOR ==========
+            if (window.innerWidth > 768) {
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                    
+                    setTimeout(() => {
+                        cursorFollower.style.left = e.clientX + 'px';
+                        cursorFollower.style.top = e.clientY + 'px';
+                    }, 100);
+                });
+
+                document.querySelectorAll('.person, .legend-item, button').forEach(el => {
+                    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+                    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+                });
+            } else {
+                // Hide cursor elements on mobile
+                cursor.style.display = 'none';
+                cursorFollower.style.display = 'none';
+            }
+
+            // ========== BACKGROUND EFFECTS ==========
+            function createStars() {
+                const starsContainer = document.getElementById('stars');
+                const starCount = window.innerWidth <= 768 ? 50 : 200;
                 
-                // Toggle active state
-                this.classList.toggle('active');
+                for (let i = 0; i < starCount; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.width = Math.random() * 3 + 'px';
+                    star.style.height = star.style.width;
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.animationDelay = Math.random() * 3 + 's';
+                    star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    starsContainer.appendChild(star);
+                }
+            }
+
+            function createConstellations() {
+                if (window.innerWidth <= 768) return;
                 
-                if (this.classList.contains('active')) {
-                    persons.forEach(person => {
-                        if (!person.classList.contains(filter)) {
-                            person.style.opacity = '0.3';
-                            person.style.filter = 'grayscale(0.8)';
+                const svg = document.getElementById('constellationLines');
+                const points = [];
+                
+                for (let i = 0; i < 15; i++) {
+                    points.push({
+                        x: Math.random() * window.innerWidth,
+                        y: Math.random() * window.innerHeight
+                    });
+                }
+                
+                points.forEach((point, i) => {
+                    points.slice(i + 1).forEach(otherPoint => {
+                        const distance = Math.sqrt(
+                            Math.pow(point.x - otherPoint.x, 2) + 
+                            Math.pow(point.y - otherPoint.y, 2)
+                        );
+                        
+                        if (distance < 200) {
+                            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                            line.setAttribute('x1', point.x);
+                            line.setAttribute('y1', point.y);
+                            line.setAttribute('x2', otherPoint.x);
+                            line.setAttribute('y2', otherPoint.y);
+                            line.classList.add('constellation-line');
+                            svg.appendChild(line);
                         }
                     });
-                } else {
-                    persons.forEach(person => {
-                        person.style.opacity = '';
-                        person.style.filter = '';
-                    });
-                }
+                });
+            }
+
+            function createFloatingOrbs() {
+                if (window.innerWidth <= 768) return;
                 
-                // Only create particles on desktop
-                if (!isMobile) {
-                    createParticles(this);
+                const container = document.getElementById('orbContainer');
+                const orbCount = 5;
+                
+                for (let i = 0; i < orbCount; i++) {
+                    const orb = document.createElement('div');
+                    orb.className = 'floating-orb';
+                    orb.style.width = (Math.random() * 100 + 50) + 'px';
+                    orb.style.height = orb.style.width;
+                    orb.style.left = Math.random() * 100 + '%';
+                    orb.style.top = Math.random() * 100 + '%';
+                    orb.style.background = `radial-gradient(circle at 30% 30%, 
+                        hsla(${Math.random() * 60 + 200}, 70%, 60%, 0.3), transparent)`;
+                    orb.style.animationDelay = (Math.random() * 10) + 's';
+                    orb.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                    container.appendChild(orb);
                 }
-            });
-        });
+            }
 
-        // ========== INITIALIZATION FUNCTION ==========
-        function initializeAnimations() {
-            createStars();
-            createConstellations();
-            createFloatingOrbs();
-            
-            // Draw connections after a short delay to ensure layout is complete
-            setTimeout(drawConnections, 100);
-            
-            // Redraw connections on window resize
-            let resizeTimeout;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    drawConnections();
-                    
-                    // Update mobile state on resize
-                    const newIsMobile = window.innerWidth <= 768;
-                    if (newIsMobile !== isMobile) {
-                        location.reload(); // Reload to properly reinitialize for new viewport
-                    }
-                }, 100);
-            });
-            
-            // Add entrance animations with stagger
-            const persons = document.querySelectorAll('.person');
-            persons.forEach((person, index) => {
-                if (window.innerWidth > 768) {
-                    person.style.animationDelay = `${0.6 + index * 0.1}s`;
-                } else {
-                    // Simpler animation delay on mobile
-                    person.style.animationDelay = `${0.2 + index * 0.05}s`;
-                }
-            });
-        }
+            // ========== SVG CONNECTIONS ==========
+            function getCenter(element) {
+                const rect = element.getBoundingClientRect();
+                const containerRect = document.querySelector('.tree-container').getBoundingClientRect();
+                return {
+                    x: rect.left + rect.width / 2 - containerRect.left,
+                    y: rect.top + rect.height / 2 - containerRect.top
+                };
+            }
 
-        // ========== ADDITIONAL EFFECTS ==========
-        // Random sparkles (desktop only)
-        if (window.innerWidth > 768) {
-            setInterval(() => {
-                if (isLoaded && Math.random() > 0.7) {
-                    const persons = document.querySelectorAll('.person');
-                    const randomPerson = persons[Math.floor(Math.random() * persons.length)];
-                    const rect = randomPerson.getBoundingClientRect();
+            function drawConnection(fromId, toId, svg) {
+                const fromElement = document.getElementById(fromId);
+                const toElement = document.getElementById(toId);
+                
+                if (!fromElement || !toElement) return;
+                
+                const from = getCenter(fromElement);
+                const to = getCenter(toElement);
+                
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                
+                const midY = from.y + (to.y - from.y) * 0.5;
+                const controlPoint1X = from.x;
+                const controlPoint1Y = midY;
+                const controlPoint2X = to.x;
+                const controlPoint2Y = midY;
+                
+                const d = `M ${from.x} ${from.y} 
+                           C ${controlPoint1X} ${controlPoint1Y}, 
+                             ${controlPoint2X} ${controlPoint2Y}, 
+                             ${to.x} ${to.y}`;
+                
+                path.setAttribute('d', d);
+                path.setAttribute('class', 'connection-line');
+                path.setAttribute('data-from', fromId);
+                path.setAttribute('data-to', toId);
+                svg.appendChild(path);
+            }
+
+            function drawConnections() {
+                if (window.innerWidth <= 768) return;
+                
+                const svg = document.getElementById('connectionsSvg');
+                const paths = svg.querySelectorAll('path');
+                paths.forEach(path => path.remove());
+                
+                drawConnection('grandmother', 'mother', svg);
+                drawConnection('grandfather', 'uncle', svg);
+                drawConnection('father', 'abishek', svg);
+                drawConnection('mother', 'abishek', svg);
+                drawConnection('father', 'nisha', svg);
+                drawConnection('mother', 'nisha', svg);
+                drawConnection('uncle', 'vedantha', svg);
+                drawConnection('aunt', 'vedantha', svg);
+                drawConnection('uncle', 'medha', svg);
+                drawConnection('aunt', 'medha', svg);
+            }
+
+            // ========== INTERACTIVE EFFECTS ==========
+            function createRipple(e, element) {
+                const rect = element.getBoundingClientRect();
+                const ripple = document.createElement('div');
+                ripple.className = 'ripple';
+                
+                const size = window.innerWidth <= 768 ? 
+                    Math.min(rect.width, rect.height) : 
+                    Math.max(rect.width, rect.height);
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                
+                element.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 800);
+            }
+
+            function createParticles(element) {
+                const rect = element.getBoundingClientRect();
+                const colors = ['#667eea', '#764ba2', '#f093fb', '#fcb045'];
+                const particleCount = window.innerWidth <= 768 ? 6 : 12;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.innerHTML = '✨';
+                    particle.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                    particle.style.color = colors[Math.floor(Math.random() * colors.length)];
                     
-                    const sparkle = document.createElement('div');
-                    sparkle.innerHTML = '✨';
-                    sparkle.style.cssText = `
-                        position: fixed;
-                        left: ${rect.left + Math.random() * rect.width}px;
-                        top: ${rect.top + Math.random() * rect.height}px;
-                        color: #ffd700;
-                        font-size: 20px;
-                        pointer-events: none;
-                        animation: sparkle 1s ease-out forwards;
-                        z-index: 1000;
+                    const angle = (i / particleCount) * Math.PI * 2;
+                    const distance = window.innerWidth <= 768 ? 30 + Math.random() * 50 : 50 + Math.random() * 100;
+                    const tx = Math.cos(angle) * distance;
+                    const ty = Math.sin(angle) * distance;
+                    
+                    particle.style.cssText += `
+                        left: ${rect.left + rect.width / 2}px;
+                        top: ${rect.top + rect.height / 2}px;
+                        --tx: ${tx}px;
+                        --ty: ${ty}px;
                     `;
-                    document.body.appendChild(sparkle);
-                    setTimeout(() => sparkle.remove(), 1000);
+                    
+                    document.body.appendChild(particle);
+                    setTimeout(() => particle.remove(), 1000);
                 }
-            }, 3000);
-        }
+            }
 
-        // Parallax effect on mouse move (desktop only)
-        if (window.innerWidth > 768) {
-            document.addEventListener('mousemove', (e) => {
-                const x = (e.clientX - window.innerWidth / 2) / window.innerWidth;
-                const y = (e.clientY - window.innerHeight / 2) / window.innerHeight;
+            function highlightConnections(personId) {
+                if (window.innerWidth <= 768) return;
                 
-                document.querySelectorAll('.floating-orb').forEach((orb, index) => {
-                    const speed = (index + 1) * 10;
-                    orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+                const connections = {
+                    'grandfather': ['grandmother', 'uncle'],
+                    'grandmother': ['grandfather', 'mother'],
+                    'father': ['mother', 'abishek', 'nisha'],
+                    'mother': ['father', 'abishek', 'nisha', 'grandmother'],
+                    'uncle': ['aunt', 'vedantha', 'medha', 'grandfather'],
+                    'aunt': ['uncle', 'vedantha', 'medha'],
+                    'abishek': ['father', 'mother', 'nisha'],
+                    'nisha': ['father', 'mother', 'abishek'],
+                    'vedantha': ['uncle', 'aunt', 'medha'],
+                    'medha': ['uncle', 'aunt', 'vedantha']
+                };
+                
+                document.querySelectorAll('.connection-line').forEach(line => {
+                    const from = line.getAttribute('data-from');
+                    const to = line.getAttribute('data-to');
+                    
+                    if (from === personId || to === personId || 
+                        connections[personId]?.includes(from) || 
+                        connections[personId]?.includes(to)) {
+                        line.classList.add('active');
+                    }
                 });
                 
-                const stars = document.getElementById('stars');
-                if (stars) {
-                    stars.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+                connections[personId]?.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        element.style.transform = 'scale(1.05)';
+                        element.style.filter = 'brightness(1.2)';
+                    }
+                });
+            }
+
+            function clearHighlights() {
+                if (window.innerWidth <= 768) return;
+                
+                document.querySelectorAll('.connection-line').forEach(line => {
+                    line.classList.remove('active');
+                });
+                
+                document.querySelectorAll('.person').forEach(person => {
+                    person.style.transform = '';
+                    person.style.filter = '';
+                });
+            }
+
+            // ========== TOOLTIP SYSTEM ==========
+            function showTooltip(e, text) {
+                tooltip.textContent = text;
+                tooltip.classList.add('show');
+                
+                const x = e.clientX;
+                const y = e.clientY;
+                
+                tooltip.style.left = x + 'px';
+                tooltip.style.top = (y - tooltip.offsetHeight - 20) + 'px';
+                
+                const rect = tooltip.getBoundingClientRect();
+                if (rect.left < 10) {
+                    tooltip.style.left = '10px';
+                } else if (rect.right > window.innerWidth - 10) {
+                    tooltip.style.left = (window.innerWidth - rect.width - 10) + 'px';
+                }
+                
+                if (rect.top < 10) {
+                    tooltip.style.top = (y + 20) + 'px';
+                }
+            }
+
+            function hideTooltip() {
+                tooltip.classList.remove('show');
+            }
+
+            // ========== EVENT LISTENERS ==========
+            document.querySelectorAll('.person').forEach(person => {
+                person.addEventListener('click', function(e) {
+                    createRipple(e, this);
+                    createParticles(this);
+                    highlightConnections(this.id);
+                    
+                    if (isMobile) {
+                        const info = this.getAttribute('data-info');
+                        if (info) {
+                            const modal = document.createElement('div');
+                            modal.style.cssText = `
+                                position: fixed;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                background: rgba(0, 0, 0, 0.95);
+                                color: white;
+                                padding: 30px;
+                                border-radius: 20px;
+                                max-width: 90%;
+                                max-height: 80%;
+                                z-index: 10000;
+                                backdrop-filter: blur(10px);
+                                border: 1px solid rgba(255, 255, 255, 0.2);
+                                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+                                animation: modalIn 0.3s ease-out;
+                            `;
+                            modal.innerHTML = `
+                                <div style="font-size: 1.2em; line-height: 1.6;">${info}</div>
+                                <button style="
+                                    margin-top: 20px;
+                                    padding: 10px 20px;
+                                    background: var(--primary-gradient);
+                                    border: none;
+                                    border-radius: 10px;
+                                    color: white;
+                                    font-size: 1em;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                " onclick="this.parentElement.remove()">Close</button>
+                            `;
+                            document.body.appendChild(modal);
+                        }
+                    }
+                    
+                    setTimeout(clearHighlights, 2000);
+                });
+                
+                if (!isMobile) {
+                    person.addEventListener('mouseenter', function(e) {
+                        const info = this.getAttribute('data-info');
+                        if (info) {
+                            showTooltip(e, info);
+                        }
+                    });
+                    
+                    person.addEventListener('mousemove', function(e) {
+                        const info = this.getAttribute('data-info');
+                        if (info) {
+                            showTooltip(e, info);
+                        }
+                    });
+                    
+                    person.addEventListener('mouseleave', hideTooltip);
+                    
+                    person.addEventListener('mouseenter', function() {
+                        const children = this.querySelectorAll('.photo-placeholder, .name, .relationship, .occupation');
+                        children.forEach((child, index) => {
+                            child.style.transition = `transform 0.3s ease ${index * 0.05}s`;
+                            child.style.transform = 'translateY(-2px)';
+                        });
+                    });
+                    
+                    person.addEventListener('mouseleave', function() {
+                        const children = this.querySelectorAll('.photo-placeholder, .name, .relationship, .occupation');
+                        children.forEach(child => {
+                            child.style.transform = 'translateY(0)';
+                        });
+                    });
                 }
             });
+
+            // Legend filtering
+            document.querySelectorAll('.legend-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    const persons = document.querySelectorAll('.person');
+                    
+                    this.classList.toggle('active');
+                    
+                    if (this.classList.contains('active')) {
+                        persons.forEach(person => {
+                            if (!person.classList.contains(filter)) {
+                                person.style.opacity = '0.3';
+                                person.style.filter = 'grayscale(0.8)';
+                            }
+                        });
+                    } else {
+                        persons.forEach(person => {
+                            person.style.opacity = '';
+                            person.style.filter = '';
+                        });
+                    }
+                    
+                    if (!isMobile) {
+                        createParticles(this);
+                    }
+                });
+            });
+
+            // ========== INITIALIZATION FUNCTION ==========
+            function initializeAnimations() {
+                createStars();
+                createConstellations();
+                createFloatingOrbs();
+                
+                setTimeout(drawConnections, 100);
+                
+                let resizeTimeout;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimeout);
+                    resizeTimeout = setTimeout(() => {
+                        drawConnections();
+                        
+                        const newIsMobile = window.innerWidth <= 768;
+                        if (newIsMobile !== isMobile) {
+                            location.reload();
+                        }
+                    }, 100);
+                });
+                
+                const persons = document.querySelectorAll('.person');
+                persons.forEach((person, index) => {
+                    if (window.innerWidth > 768) {
+                        person.style.animationDelay = `${0.6 + index * 0.1}s`;
+                    } else {
+                        person.style.animationDelay = `${0.2 + index * 0.05}s`;
+                    }
+                });
+            }
+
+            // ========== ADDITIONAL EFFECTS ==========
+            if (window.innerWidth > 768) {
+                setInterval(() => {
+                    if (isLoaded && Math.random() > 0.7) {
+                        const persons = document.querySelectorAll('.person');
+                        const randomPerson = persons[Math.floor(Math.random() * persons.length)];
+                        const rect = randomPerson.getBoundingClientRect();
+                        
+                        const sparkle = document.createElement('div');
+                        sparkle.innerHTML = '✨';
+                        sparkle.style.cssText = `
+                            position: fixed;
+                            left: ${rect.left + Math.random() * rect.width}px;
+                            top: ${rect.top + Math.random() * rect.height}px;
+                            color: #ffd700;
+                            font-size: 20px;
+                            pointer-events: none;
+                            animation: sparkle 1s ease-out forwards;
+                            z-index: 1000;
+                        `;
+                        document.body.appendChild(sparkle);
+                        setTimeout(() => sparkle.remove(), 1000);
+                    }
+                }, 3000);
+            }
+
+            // Parallax effect on mouse move (desktop only)
+            if (window.innerWidth > 768) {
+                document.addEventListener('mousemove', (e) => {
+                    const x = (e.clientX - window.innerWidth / 2) / window.innerWidth;
+                    const y = (e.clientY - window.innerHeight / 2) / window.innerHeight;
+                    
+                    document.querySelectorAll('.floating-orb').forEach((orb, index) => {
+                        const speed = (index + 1) * 10;
+                        orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+                    });
+                    
+                    const stars = document.getElementById('stars');
+                    if (stars) {
+                        stars.style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+                    }
+                });
+            }
         }
     </script>
 </body>
